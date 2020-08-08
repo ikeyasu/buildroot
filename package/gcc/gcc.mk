@@ -17,7 +17,7 @@ else
 GCC_SITE = $(BR2_GNU_MIRROR:/=)/gcc/gcc-$(GCC_VERSION)
 endif
 
-GCC_SOURCE ?= gcc-$(GCC_VERSION).tar.bz2
+GCC_SOURCE ?= gcc-$(GCC_VERSION).tar.xz
 
 #
 # Xtensa special hook

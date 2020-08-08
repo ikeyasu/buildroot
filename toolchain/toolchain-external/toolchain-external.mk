@@ -519,8 +519,6 @@ define TOOLCHAIN_EXTERNAL_CONFIGURE_CMDS
 	$(call check_kernel_headers_version,\
 		$(call toolchain_find_sysroot,$(TOOLCHAIN_EXTERNAL_CC)),\
 		$(call qstrip,$(BR2_TOOLCHAIN_HEADERS_AT_LEAST))); \
-	$(call check_gcc_version,$(TOOLCHAIN_EXTERNAL_CC),\
-		$(call qstrip,$(BR2_TOOLCHAIN_GCC_AT_LEAST))); \
 	if test "$(BR2_arm)" = "y" ; then \
 		$(call check_arm_abi,\
 			"$(TOOLCHAIN_EXTERNAL_CC) $(TOOLCHAIN_EXTERNAL_CFLAGS)",\
@@ -538,6 +536,9 @@ define TOOLCHAIN_EXTERNAL_CONFIGURE_CMDS
 	fi
 	$(Q)$(call check_toolchain_ssp,$(TOOLCHAIN_EXTERNAL_CC))
 endef
+
+#$(call check_gcc_version,$(TOOLCHAIN_EXTERNAL_CC),\
+#		$(call qstrip,$(BR2_TOOLCHAIN_GCC_AT_LEAST))); \
 
 # With the musl C library, the libc.so library directly plays the role
 # of the dynamic library loader. We just need to create a symbolic

@@ -4,8 +4,13 @@
 #
 ################################################################################
 
+ifneq ($(filter riscv32 riscv64, $(ARCH)),)
+LIBFFI_VERSION = 3.3rc0
+LIBFFI_SITE = $(call github,libffi,libffi,980908b47bbde09fab88ee4b2b61d8bc5d4378a7)
+else
 LIBFFI_VERSION = 3.2.1
 LIBFFI_SITE = ftp://sourceware.org/pub/libffi
+endif
 LIBFFI_LICENSE = MIT
 LIBFFI_LICENSE_FILES = LICENSE
 LIBFFI_INSTALL_STAGING = YES
@@ -14,10 +19,10 @@ LIBFFI_AUTORECONF = YES
 # Move the headers to the usual location, and adjust the .pc file
 # accordingly.
 define LIBFFI_MOVE_HEADERS
-	mv $(1)/usr/lib/libffi-$(LIBFFI_VERSION)/include/*.h $(1)/usr/include/
-	$(SED) '/^includedir.*/d' -e '/^Cflags:.*/d' \
-		$(1)/usr/lib/pkgconfig/libffi.pc
-	rm -rf $(1)/usr/lib/libffi-*
+#	mv $(1)/usr/lib/libffi-$(LIBFFI_VERSION)/include/*.h $(1)/usr/include/
+#	$(SED) '/^includedir.*/d' -e '/^Cflags:.*/d' \
+#		$(1)/usr/lib/pkgconfig/libffi.pc
+#	rm -rf $(1)/usr/lib/libffi-*
 endef
 
 LIBFFI_MOVE_STAGING_HEADERS = $(call LIBFFI_MOVE_HEADERS,$(STAGING_DIR))
@@ -28,7 +33,7 @@ HOST_LIBFFI_POST_INSTALL_HOOKS += HOST_LIBFFI_MOVE_HOST_HEADERS
 
 # Remove headers that are not at the usual location from the target
 define LIBFFI_REMOVE_TARGET_HEADERS
-	$(RM) -rf $(TARGET_DIR)/usr/lib/libffi-$(LIBFFI_VERSION)
+	$(RM) -rf $(TARGET_DIR)/usr/lib/libffi-$(LIBFFI_VERSION_LOCAL)
 endef
 
 LIBFFI_POST_INSTALL_TARGET_HOOKS += LIBFFI_REMOVE_TARGET_HEADERS

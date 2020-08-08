@@ -22,6 +22,16 @@ config BR2_GLIBC_VERSION_2_23
 	# No support for pthread barriers on < v9 ISA
 	depends on !BR2_sparc
 
+config BR2_GLIBC_VERSION_2_26
+	bool "2.26"
+	# No support for pthread barriers on < v9 ISA
+	depends on !BR2_sparc
+
+config BR2_GLIBC_VERSION_2_27
+	bool "2.27"
+	# No support for pthread barriers on < v9 ISA
+	depends on !BR2_sparc
+
 endchoice
 
 endif
@@ -30,3 +40,5 @@ config BR2_GLIBC_VERSION_STRING
 	string
 	default "2.22" if BR2_GLIBC_VERSION_2_22
 	default "2.23" if BR2_GLIBC_VERSION_2_23
+	default "2.26" if BR2_GLIBC_VERSION_2_26
+	default "2.27" if BR2_GLIBC_VERSION_2_27

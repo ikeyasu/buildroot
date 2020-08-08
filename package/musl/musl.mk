@@ -4,8 +4,14 @@
 #
 ################################################################################
 
+ifneq ($(filter riscv32 riscv64, $(ARCH)),)
+MUSL_VERSION = ad8f00c0ab86c463c12404fe8356031ab4a5e7e4
+MUSL_SITE = $(call github,michaelforney,musl,$(MUSL_VERSION))
+BR_NO_CHECK_HASH_FOR += $(MUSL_SOURCE)
+else
 MUSL_VERSION = 1.1.14
 MUSL_SITE = http://www.musl-libc.org/releases
+endif
 MUSL_LICENSE = MIT
 MUSL_LICENSE_FILES = COPYRIGHT
 

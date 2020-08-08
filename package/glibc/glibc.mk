@@ -5,8 +5,14 @@
 ################################################################################
 
 GLIBC_VERSION = $(call qstrip,$(BR2_GLIBC_VERSION_STRING))
+ifeq ($(ARCH), riscv32)
+# riscv32 support is not merged yet in glibc 2.27, so we use glibc 2.26
+GLIBC_SITE = $(call github,riscv,riscv-glibc,4e2943456e690d89f48e6e710757dd09404b0c9a)
+BR_NO_CHECK_HASH_FOR += $(GLIBC_SOURCE)
+else
 GLIBC_SITE = $(BR2_GNU_MIRROR)/libc
 GLIBC_SOURCE = glibc-$(GLIBC_VERSION).tar.xz
+endif
 GLIBC_SRC_SUBDIR = .
 
 GLIBC_LICENSE = GPLv2+ (programs), LGPLv2.1+, BSD-3c, MIT (library)
